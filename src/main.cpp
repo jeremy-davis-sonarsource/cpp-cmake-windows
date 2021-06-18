@@ -18,6 +18,6 @@ int main(int argc, char* argv[]) {
   	cout << "argv not null\n";; // intentional extra-semicolon
   }
 
-  return 0;
+  return 0;//FIXME
 }
 
