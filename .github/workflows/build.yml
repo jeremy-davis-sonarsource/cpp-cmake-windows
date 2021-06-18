@@ -21,11 +21,11 @@ jobs:
           $path = "$HOME/.sonar/build-wrapper-win-x86.zip"
           mkdir $HOME/.sonar
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-          (New-Object System.Net.WebClient).DownloadFile("${ secrets.SONAR_HOST_URL }/static/cpp/build-wrapper-win-x86.zip", $path)
+          (New-Object System.Net.WebClient).DownloadFile("${{ secrets.SONAR_HOST_URL }}/static/cpp/build-wrapper-win-x86.zip", $path)
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           [System.IO.Compression.ZipFile]::ExtractToDirectory($path, "$HOME/.sonar")
         env:
-          SONAR_HOST_URL: ${ secrets.SONAR_HOST_URL }
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: Download and install the SonarScanner
         shell: powershell
@@ -48,5 +48,7 @@ jobs:
           build-wrapper-win-x86-64 --out-dir bw-output cmake --build build/ --config Release
           sonar-scanner.bat "-Dsonar.cfamily.build-wrapper-output=bw-output"
         env:
-          SONAR_TOKEN: ${ secrets.SONAR_TOKEN }
-          SONAR_HOST_URL: ${ secrets.SONAR_HOST_URL }
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          
+          
